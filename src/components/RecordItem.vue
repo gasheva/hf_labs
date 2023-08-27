@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import BaseButton from "@/ui/button/BaseButton.vue";
 
 interface IProps {
@@ -9,28 +9,39 @@ interface IProps {
 const {id, temperatures} = defineProps<IProps>();
 
 const emit = defineEmits<{
-    (e: 'onDelete'): void
-    (e: 'onChange'): void
-}>()
+    (e: "onDelete"): void;
+    (e: "onChange"): void;
+}>();
 </script>
 
 <template>
-<div class="record-item">
+  <div class="record-item">
     <div class="record">
-        <span class="column">
-            <span>Id:</span>
-            {{ id }}
+      <span class="column">
+        <span>Id:</span>
+        {{ id }}
+      </span>
+      <div class="column">
+        Температура:
+        <span
+          v-for="(temperature, idx) in temperatures"
+          :key="idx"
+        >
+          {{ temperature }}
         </span>
-        <div class="column">
-            Температура:
-            <span v-for="temperature in temperatures">{{ temperature }}</span>
-        </div>
+      </div>
     </div>
     <span class="record-item__buttons">
-        <BaseButton label="Изменить" @on-click="emit('onChange')"/>
-        <BaseButton label="Удалить" @on-click="emit('onDelete')"/>
+      <BaseButton
+        label="Изменить"
+        @on-click="emit('onChange')"
+      />
+      <BaseButton
+        label="Удалить"
+        @on-click="emit('onDelete')"
+      />
     </span>
-</div>
+  </div>
 </template>
 
 <style scoped>
@@ -50,8 +61,9 @@ const emit = defineEmits<{
     align-items: center;
     width: 100%;
 }
+
 @media (max-width: 480px) {
-    .record-item__buttons{
+    .record-item__buttons {
         flex-direction: column;
         justify-content: space-between;
     }
@@ -62,6 +74,7 @@ const emit = defineEmits<{
     gap: 1rem;
     width: 100%;
 }
+
 .column {
     display: flex;
     flex-direction: column;

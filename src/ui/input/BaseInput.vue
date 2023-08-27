@@ -1,41 +1,41 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {ref} from "vue";
 
 interface IProps {
     value: string | number;
     label?: string;
-    disabled?: boolean;
 }
 
-// const {value, label} = defineProps<IProps>()
-
-const {value, label, disabled} = withDefaults(defineProps<IProps>(), {
-    disabled: false,
+const {value, label} = withDefaults(defineProps<IProps>(), {
+    label: "",
 });
 
 const emit = defineEmits<{
-    (e: 'update:value', value: string): void
-}>()
+    (e: "update:value", value: string): void;
+}>();
 
 const inputRef = ref<HTMLInputElement>();
 
 defineExpose({
     focus: () => {
-        inputRef.value?.focus()
-    }
-})
+        inputRef.value?.focus();
+    },
+});
 
 const emitValue = (e: Event) => {
-    emit('update:value', (e.target as HTMLInputElement).value.trim())
-}
-
+    emit("update:value", (e.target as HTMLInputElement).value.trim());
+};
 </script>
 
 <template>
-    <div class="base-input">
-        <label>{{ label }}</label>
-        <input :value="value" :disabled="disabled" @input="emitValue" ref="inputRef"/>
-    </div>
+  <div class="base-input">
+    <label>{{ label }}</label>
+    <input
+      ref="inputRef"
+      :value="value"
+      @input="emitValue"
+    >
+  </div>
 </template>
 
 <style scoped>

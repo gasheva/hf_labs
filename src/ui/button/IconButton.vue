@@ -1,27 +1,27 @@
-<script setup lang="ts">
-
+<script lang="ts" setup>
 interface IProps {
     label?: string;
-    color?: 'white' | 'gray' | 'blue'
+    color?: "white" | "gray" | "blue";
 }
 
 const {label, color} = withDefaults(defineProps<IProps>(), {
-    color: 'gray'
+    color: "gray",
+    label: "",
 });
 
-
 const emit = defineEmits<{
-    (e: 'onClick'): void
-}>()
-
+    (e: "onClick"): void;
+}>();
 </script>
 
 <template>
-    <button class="icon-button"
-            :class="`icon-button--${color}`"
-            @click="emit('onClick')">
-        <slot>{{ label }}</slot>
-    </button>
+  <button
+    :class="`icon-button--${color}`"
+    class="icon-button"
+    @click="emit('onClick')"
+  >
+    <slot>{{ label }}</slot>
+  </button>
 </template>
 
 <style scoped>
@@ -33,7 +33,8 @@ const emit = defineEmits<{
     border: none;
     cursor: pointer;
 }
-.icon-button:hover{
+
+.icon-button:hover {
     opacity: 0.8;
 }
 
@@ -41,10 +42,12 @@ const emit = defineEmits<{
     background-color: #ffffff;
     color: black;
 }
+
 .icon-button--gray {
     background-color: #808080;
     color: white;
 }
+
 .icon-button--blue {
     background-color: #4a72c4;
     color: white;

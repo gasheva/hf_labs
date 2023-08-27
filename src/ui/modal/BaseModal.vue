@@ -1,50 +1,66 @@
-<script setup lang="ts">
-import BaseButton from '@/ui/button/BaseButton.vue';
+<script lang="ts" setup>
+import BaseButton from "@/ui/button/BaseButton.vue";
+
 interface IProps {
-    isOpen: boolean,
-    text: string,
+    isOpen: boolean;
+    text: string;
 }
+
 const {isOpen} = defineProps<IProps>();
 
 const emit = defineEmits<{
-    (e: 'update:isOpen', value: boolean): void
-    (e: 'cancel'): void
-    (e: 'submit'): void
-}>()
+    (e: "update:isOpen", value: boolean): void;
+    (e: "cancel"): void;
+    (e: "submit"): void;
+}>();
 
-const hide=()=> {
-    emit('update:isOpen', false);
-}
+const hide = () => {
+    emit("update:isOpen", false);
+};
 
-const onCancel = ()=>{
+const onCancel = () => {
     hide();
-    emit('cancel')
-}
+    emit("cancel");
+};
 
-const onSubmit = ()=>{
+const onSubmit = () => {
     hide();
-    emit('submit')
-}
-
+    emit("submit");
+};
 </script>
 
 <template>
-    <div>
-        <Teleport to="body">
-            <div v-show="isOpen" class="popup-base-background" @click="hide"/>
-            <div v-show="isOpen" class="popup-base" @click.prevent>
-                <span class="popup-base__text">{{ text }}</span>
-                <div class="popup-base__footer">
-                    <span class="popup-base__button">
-                        <base-button @click="onCancel" label="Отмена"/>
-                    </span>
-                    <span class="popup-base__button">
-                        <base-button color="blue" @click="onSubmit" label="Подтвердить"/>
-                    </span>
-                </div>
-            </div>
-        </Teleport>
-    </div>
+  <div>
+    <Teleport to="body">
+      <div
+        v-show="isOpen"
+        class="popup-base-background"
+        @click="hide"
+      />
+      <div
+        v-show="isOpen"
+        class="popup-base"
+        @click.prevent
+      >
+        <span class="popup-base__text">{{ text }}</span>
+        <div class="popup-base__footer">
+          <span class="popup-base__button">
+            <base-button
+              label="Отмена"
+              @click="onCancel"
+            />
+          </span>
+          <span class="popup-base__button">
+            <base-button
+              color="blue"
+              label="Подтвердить"
+              @click="onSubmit"
+            />
+          </span>
+        </div>
+      </div>
+    </Teleport>
+  </div>
 </template>
 
 <style scoped>
@@ -75,7 +91,7 @@ const onSubmit = ()=>{
 }
 
 @media (max-width: 720px) {
-    .popup-base{
+    .popup-base {
         max-width: 90%;
     }
 }
@@ -86,6 +102,7 @@ const onSubmit = ()=>{
     padding-top: 2rem;
     gap: 1rem;
 }
+
 .popup-base__button {
     max-width: 120px;
     width: 120px;

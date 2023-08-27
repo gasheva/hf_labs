@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 import type {Record} from "@/types/Record";
 import {records} from "@/stores/mock/records";
 
@@ -24,16 +24,16 @@ export const useRecordsStore = defineStore('records', {
     }),
 
     actions: {
-        add(record: Record){
+        add(record: Record) {
             this.records.push(record);
             updateRecordsInPersistedState(this.$state)
         },
-        remove(id: number | string){
-            this.records = this.records.filter((record: Record)=> record.id!=id)
+        remove(id: number | string) {
+            this.records = this.records.filter((record: Record) => record.id != id)
             updateRecordsInPersistedState(this.$state)
         },
-        updateRecord(id: string, record: Record){
-            this.records = this.records.map((r: Record)=> r.id===id? record: r)
+        updateRecord(id: string, record: Record) {
+            this.records = this.records.map((r: Record) => r.id === id ? record : r)
             updateRecordsInPersistedState(this.$state)
         }
     }
