@@ -7,7 +7,7 @@ export const useRecord = () => {
     const isValid = (record: Record) => {
         try {
             validate(record)
-            return {status: true}
+            return {status: true, message: ''}
         } catch (e: Error) {
             return {status: false, message: e.message}
         }

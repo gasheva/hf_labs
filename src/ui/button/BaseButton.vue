@@ -5,7 +5,7 @@ interface IProps {
     disabled?: boolean;
 }
 
-const {label, color} = withDefaults(defineProps<IProps>(), {
+const {label, color, disabled} = withDefaults(defineProps<IProps>(), {
     color: "gray",
     label: "",
     disabled: false,

@@ -6,7 +6,7 @@ interface IProps {
     text: string;
 }
 
-const {isOpen} = defineProps<IProps>();
+const {text, isOpen} = defineProps<IProps>();
 
 const emit = defineEmits<{
     (e: "update:isOpen", value: boolean): void;

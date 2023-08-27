@@ -34,8 +34,8 @@ watch(
 
 const onChange = (v: string) => {
     const targetValue = v.trim();
-    const {decimalCheck} = useNumber();
-    const {status} = decimalCheck(targetValue);
+    const {checkNumber} = useNumber();
+    const {status} = checkNumber(targetValue);
     if (!status) {
         rerenderInput();
         nextTick(() => inputRef.value?.focus());
@@ -50,8 +50,8 @@ const onChange = (v: string) => {
   <base-input
     :key="inputKey"
     ref="inputRef"
-    :value="props.value"
     v-bind="props"
+    :value="props.value"
     @update:value="onChange($event)"
   />
 </template>

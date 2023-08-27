@@ -1,6 +1,5 @@
 import {defineStore} from 'pinia'
 import type {Record} from "@/types/Record";
-import {records} from "@/stores/mock/records";
 
 type State = {
     records: Record[]
@@ -28,7 +27,7 @@ export const useRecordsStore = defineStore('records', {
             this.records.push(record);
             updateRecordsInPersistedState(this.$state)
         },
-        remove(id: number | string) {
+        remove(id: string) {
             this.records = this.records.filter((record: Record) => record.id != id)
             updateRecordsInPersistedState(this.$state)
         },

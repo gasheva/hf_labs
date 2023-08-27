@@ -47,7 +47,7 @@ const onAdd = () => {
   <main class="home">
     <div class="buttons">
       <span>
-        <BaseButton
+        <base-button
           color="blue"
           label="Создать новую запись"
           type="info"

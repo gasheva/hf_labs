@@ -2,7 +2,7 @@
 import BaseButton from "@/ui/button/BaseButton.vue";
 
 interface IProps {
-    id: string | number;
+    id: string;
     temperatures: number[];
 }
 
@@ -32,11 +32,11 @@ const emit = defineEmits<{
       </div>
     </div>
     <span class="record-item__buttons">
-      <BaseButton
+      <base-button
         label="Изменить"
         @on-click="emit('onChange')"
       />
-      <BaseButton
+      <base-button
         label="Удалить"
         @on-click="emit('onDelete')"
       />

@@ -1,12 +1,10 @@
 <script lang="ts" setup>
 interface IProps {
-    label?: string;
     color?: "white" | "gray" | "blue";
 }
 
-const {label, color} = withDefaults(defineProps<IProps>(), {
+const {color} = withDefaults(defineProps<IProps>(), {
     color: "gray",
-    label: "",
 });
 
 const emit = defineEmits<{
@@ -20,7 +18,7 @@ const emit = defineEmits<{
     class="icon-button"
     @click="emit('onClick')"
   >
-    <slot>{{ label }}</slot>
+    <slot/>
   </button>
 </template>
 
