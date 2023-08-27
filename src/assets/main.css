@@ -1,0 +1,38 @@
+@import './base.css';
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: #4a72c4;
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: #eef4f6;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+}
+
+.text {
+
+}
+
+.text__error {
+  font-size: 12px;
+  color: red;
+}
