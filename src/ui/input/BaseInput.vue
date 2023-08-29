@@ -6,7 +6,7 @@ interface IProps {
     label?: string;
 }
 
-const {value, label} = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<IProps>(), {
     label: "",
 });
 
@@ -22,18 +22,18 @@ defineExpose({
     },
 });
 
-const emitValue = (e: Event) => {
+const onChange = (e: Event) => {
     emit("update:value", (e.target as HTMLInputElement).value.trim());
 };
 </script>
 
 <template>
   <div class="base-input">
-    <label>{{ label }}</label>
+    <label>{{ props.label }}</label>
     <input
       ref="inputRef"
-      :value="value"
-      @input="emitValue"
+      :value="props.value"
+      @input="onChange"
     >
   </div>
 </template>

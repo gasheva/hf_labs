@@ -3,7 +3,7 @@ interface IProps {
     color?: "white" | "gray" | "blue";
 }
 
-const {color} = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<IProps>(), {
     color: "gray",
 });
 
@@ -14,7 +14,7 @@ const emit = defineEmits<{
 
 <template>
   <button
-    :class="`icon-button--${color}`"
+    :class="`icon-button--${props.color}`"
     class="icon-button"
     @click="emit('onClick')"
   >

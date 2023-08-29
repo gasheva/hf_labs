@@ -5,7 +5,7 @@ interface IProps {
     disabled?: boolean;
 }
 
-const {label, color, disabled} = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<IProps>(), {
     color: "gray",
     label: "",
     disabled: false,
@@ -18,8 +18,8 @@ const emit = defineEmits<{
 
 <template>
   <button
-    :class="[`base-button--${color}`, { 'base-button--disabled': disabled }]"
-    :disabled="disabled"
+    :class="[`base-button--${color}`, { 'base-button--disabled': props.disabled }]"
+    :disabled="props.disabled"
     class="base-button"
     @click="emit('onClick')"
   >
