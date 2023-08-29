@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useNumber} from "@/composable/useNumber";
+import {useNumberInputValidation} from "@/composable/useNumberInputValidation";
 import {nextTick, ref, watch} from "vue";
 import BaseInput from "@/ui/input/BaseInput.vue";
 
@@ -18,6 +18,7 @@ const emit = defineEmits<{
 const valueData = ref("");
 const inputKey = ref(0);
 const inputRef = ref<HTMLDivElement>();
+const {validate} = useNumberInputValidation();
 
 const rerenderInput = () => {
     inputKey.value++;
@@ -34,8 +35,7 @@ watch(
 
 const onChange = (v: string) => {
     const targetValue = v.trim();
-    const {checkNumber} = useNumber();
-    const {status} = checkNumber(targetValue);
+    const {status} = validate(targetValue);
     if (!status) {
         rerenderInput();
         nextTick(() => inputRef.value?.focus());

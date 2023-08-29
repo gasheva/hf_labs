@@ -12,10 +12,12 @@ const isDecimal = (value: string) => {
     return !Number.isNaN(num) && Number.isFinite(num);
 };
 
-const checkNumber = (value: string) => {
+const validate = (value: string) => {
     const result = {status: true};
 
-    if (!hasValue(value)) return result;
+    if(!value) return result;
+
+    if (!hasValue(value) || (value.length===1 && signs.includes(value[0]))) return result;
 
     const validCharacters = [...digits, ...delimiters];
     let numWithoutSign = value;
@@ -29,6 +31,6 @@ const checkNumber = (value: string) => {
     return result;
 }
 
-export const useNumber = () => {
-    return {checkNumber}
+export const useNumberInputValidation = () => {
+    return {validate}
 }
