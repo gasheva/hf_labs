@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import {ref} from "vue";
-import NumberInput from "@/ui/input/NumberInput.vue";
 import BaseButton from "@/ui/button/BaseButton.vue";
 import {useRoute, useRouter} from "vue-router";
 import {useRecordsStore} from "@/stores/records";
@@ -8,20 +7,11 @@ import {storeToRefs} from "pinia";
 import type {Record} from "@/types/Record";
 import {useRecord} from "@/composable/record/useRecord";
 import BaseInput from "@/ui/input/BaseInput.vue";
-import IconButton from "@/ui/button/IconButton.vue";
 import BaseModal from "@/ui/modal/BaseModal.vue";
+import TemperatureItem from "@/components/TemperatureItem.vue";
+import type {Temperature} from "@/types/Temperature";
+import {Modes} from "@/enums/Mode";
 
-type Temperature = {
-    id: number;
-    value: number | string;
-    oldValue: number;
-    isEdit: boolean;
-};
-
-const enum Modes {
-    CREATE = "create",
-    EDIT = "edit",
-}
 
 const {
     isValid: isRecordValid,
@@ -87,7 +77,7 @@ const addTemperature = () => {
     wasChanged.value = true;
 };
 
-const onTemperatureUpdate = (id: number, val: number | string) => {
+const onTemperatureUpdate = (id: number, val: string) => {
     const temperature = temperatures.value.find((t) => t.id === id);
     if (!temperature) {
         return;
@@ -123,7 +113,7 @@ const onIdUpdate = (val: string) => {
 const onCancel = () => {
     modal.value.isOpen = true;
     modal.value.data.text =
-        "Вы уверены, что хотите отменить изменения и вернуться к списку?";
+        "Вы уверены, что хотите отменить несохраненные изменения и вернуться к списку?";
     modal.value.data.callback = () => router.push({name: "home"});
 };
 
@@ -197,35 +187,8 @@ const onSave = () => {
           @update:value="onIdUpdate"
         />
         <div class="temperatures">
-          <div
-            v-for="t in temperatures"
-            :key="t.id"
-            class="temperatures__item"
-          >
-            <number-input
-              :value="t.value"
-              label="Температура:"
-              @update:value="(val) => onTemperatureUpdate(t.id, val)"
-            />
-            <icon-button
-              color="gray"
-              @on-click="() => onDelete(t.id)"
-            >
-              <template #default>
-                <font-awesome-icon icon="fa-regular fa-trash-can" />
-              </template>
-            </icon-button>
-            <icon-button
-              v-if="t.isEdit && mode === Modes.EDIT"
-              color="gray"
-              label="о"
-              @on-click="() => onTemperatureReset(t.id)"
-            >
-              <template #default>
-                <font-awesome-icon icon="fa-solid fa-arrow-rotate-left" />
-              </template>
-            </icon-button>
-          </div>
+            <temperature-item  v-for="t in temperatures"
+                               :key="t.id" :temperature="t" :mode="mode" @update="onTemperatureUpdate" @reset="onTemperatureReset" @delete="onDelete"/>
 
           <base-button
             class="button-add"
