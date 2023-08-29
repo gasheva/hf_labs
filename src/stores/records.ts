@@ -5,14 +5,14 @@ type State = {
     records: Record[]
 }
 
-const updateRecordsInPersistedState = (state: State) => {
-    localStorage.setItem('records', JSON.stringify(state.records))
+const updateRecordsInPersistedState = (records: Record[]) => {
+    localStorage.setItem('records', JSON.stringify(records))
 }
 
-const restoreRecordsFromPersistedState = (): State => {
+const restoreRecordsFromPersistedState = (): Record[] => {
     const persistedState = localStorage.getItem('records')
     if (persistedState) {
-        return JSON.parse(persistedState)
+        return JSON.parse(persistedState) as Record[]
     }
     return []
 }
@@ -25,15 +25,15 @@ export const useRecordsStore = defineStore('records', {
     actions: {
         add(record: Record) {
             this.records.push(record);
-            updateRecordsInPersistedState(this.$state)
+            updateRecordsInPersistedState(this.records)
         },
         remove(id: string) {
             this.records = this.records.filter((record: Record) => record.id != id)
-            updateRecordsInPersistedState(this.$state)
+            updateRecordsInPersistedState(this.records)
         },
         updateRecord(id: string, record: Record) {
             this.records = this.records.map((r: Record) => r.id === id ? record : r)
-            updateRecordsInPersistedState(this.$state)
+            updateRecordsInPersistedState(this.records)
         }
     }
 })

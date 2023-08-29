@@ -8,8 +8,8 @@ export const useRecord = () => {
         try {
             validate(record)
             return {status: true, message: ''}
-        } catch (e: Error) {
-            return {status: false, message: e.message}
+        } catch (e: any) {
+            return {status: false, message: e?.message || 'Unknown error'}
         }
     }
 
@@ -19,6 +19,9 @@ export const useRecord = () => {
         }
         if (!record.temperatures?.length) {
             throw new Error('Добавьте хотя бы одну температуру')
+        }
+        if(!isTemperaturesValid(record.temperatures)) {
+            throw new Error('Температура должна быть числом')
         }
     }
 
